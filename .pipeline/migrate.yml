@@ -14,9 +14,11 @@ jobs:
         inputs:
           command: "install"
 
-      - task: AzureCLI@0
-        displayName: Azure Login
+      - task: AzureCLI@2
         inputs:
+          azureSubscription: '2bfdec85-2969-46f5-af4c-07db443148dd' 
+          scriptType: 'bash' 
+          scriptLocation: 'inlineScript'
           inlineScript: "az login"
 
       - pwsh: |        
