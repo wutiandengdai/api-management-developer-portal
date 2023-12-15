@@ -14,6 +14,11 @@ jobs:
         inputs:
           command: "install"
 
+      - task: AzureCLI@0
+        displayName: Azure Login
+        inputs:
+          inlineScript: "az login"
+
       - pwsh: |        
           node ./migrate --sourceSubscriptionId "$(sourceSubscriptionId)" --sourceResourceGroupName  "$(sourceResourceGroupName)" --sourceServiceName "$(sourceServiceName)" --destServiceName "$(destinationServiceName)" --destSubscriptionId "$(destSubscriptionId)" --destResourceGroupName "$(destResourceGroupName)" 
         workingDirectory: "$(System.DefaultWorkingDirectory)/scripts.v3"
