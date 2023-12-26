@@ -17,9 +17,13 @@ jobs:
       - pwsh: |        
           node ./migrate --sourceSubscriptionId "$(sourceSubscriptionId)" --sourceResourceGroupName  "$(sourceResourceGroupName)" --sourceServiceName "$(sourceServiceName)" --destServiceName "$(destinationServiceName)" --destSubscriptionId "$(destSubscriptionId)" --destResourceGroupName "$(destResourceGroupName)"  --sourceServicePrincipal "$(sourceServicePrincipal)" --sourceSecret "$(sourceServicePrincipalSecret)"  --destTenantId "$(destAzureTenantId)" --destServicePrincipal "$(destServicePrincipal)" --destSecret "$(destServicePrincipalSecret)"
         workingDirectory: "$(System.DefaultWorkingDirectory)/scripts.v3"
-        displayName: Run Migrate cmd from $(sourceServiceName) to $(destinationServiceName)
+        displayName: Run Migrate cmd from $(sourceServiceName) to $(destinationServiceName)  
+        env:
+          AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
               
       - pwsh: |
           node ./updatecontenturl --existingEnvUrls "$(existingEnvUrls)" --destEnvUrls  "$(destEnvUrls)" --destServiceName "$(destinationServiceName)" --destSubscriptionId "$(destSubscriptionId)" --destResourceGroupName "$(destResourceGroupName)"
         workingDirectory: '$(System.DefaultWorkingDirectory)/scripts.v3'
         displayName: Update urls for  $(destinationServiceName)
+        env:
+          AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
