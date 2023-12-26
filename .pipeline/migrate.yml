@@ -14,15 +14,8 @@ jobs:
         inputs:
           command: "install"
 
-      - task: AzureCLI@2
-        inputs:
-          azureSubscription: 'pipeline-oasis-conn' 
-          scriptType: 'bash' 
-          scriptLocation: 'inlineScript'
-          inlineScript: "az login"
-
       - pwsh: |        
-          node ./migrate --sourceSubscriptionId "$(sourceSubscriptionId)" --sourceResourceGroupName  "$(sourceResourceGroupName)" --sourceServiceName "$(sourceServiceName)" --destServiceName "$(destinationServiceName)" --destSubscriptionId "$(destSubscriptionId)" --destResourceGroupName "$(destResourceGroupName)" 
+          node ./migrate --sourceSubscriptionId "$(sourceSubscriptionId)" --sourceResourceGroupName  "$(sourceResourceGroupName)" --sourceServiceName "$(sourceServiceName)" --destServiceName "$(destinationServiceName)" --destSubscriptionId "$(destSubscriptionId)" --destResourceGroupName "$(destResourceGroupName)"  --sourceServicePrincipal "$(sourceServicePrincipal)" --sourceSecret "$(sourceServicePrincipalSecret)"  --destTenantId "$(destAzureTenantId)" --destServicePrincipal "$(destServicePrincipal)" --destSecret "$(destServicePrincipalSecret)"
         workingDirectory: "$(System.DefaultWorkingDirectory)/scripts.v3"
         displayName: Run Migrate cmd from $(sourceServiceName) to $(destinationServiceName)
               
